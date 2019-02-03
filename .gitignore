@@ -12,3 +12,6 @@ terraform.tfvars
 
 # VS Code Stuff
 .vscode
+
+# Temp go binaries + lambda src zips 
+.tmp

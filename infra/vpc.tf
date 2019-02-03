@@ -1,5 +1,3 @@
-data "aws_availability_zones" "available" {}
-
 resource "aws_vpc" "private_api_gateway_demo_vpc" {
   cidr_block           = "172.25.0.0/16"
   instance_tenancy     = "default"
