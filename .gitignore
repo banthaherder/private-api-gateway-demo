@@ -9,3 +9,6 @@
 # TF Stuff
 .terraform/
 terraform.tfvars
+
+# VS Code Stuff
+.vscode
