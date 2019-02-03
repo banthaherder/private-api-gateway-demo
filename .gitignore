@@ -1,0 +1,11 @@
+# OSX files
+.DS_Store
+
+# TF State Files
+*.tfstate
+*.tfstate
+*.tfstate*
+
+# TF Stuff
+.terraform/
+terraform.tfvars
