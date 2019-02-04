@@ -59,9 +59,9 @@ resource "aws_api_gateway_method_response" "get_method_response_hello_lambda" {
   http_method = "${aws_api_gateway_integration.get_method_hello_lambda_integration.http_method}"
   status_code = "200"
 
-  # response_models = {
-  #   "application/json" = "Empty"
-  # }
+  response_models = {
+    "application/json" = "Empty"
+  }
 }
 
 resource "aws_api_gateway_integration_response" "get_method_hello_lambda_integration_response" {
@@ -85,18 +85,6 @@ resource "aws_api_gateway_deployment" "private_api_gateway_demo_deployment" {
   ]
 }
 
-# resource "aws_lambda_permission" "demo_lambda_permission" {
-#   action        = "lambda:InvokeFunction"
-#   function_name = "${aws_lambda_function.demo_lambda.arn}"
-#   principal     = "apigateway.amazonaws.com"
-
-#   source_arn = "${aws_api_gateway_rest_api.private_api_gateway_demo.execution_arn}/*/*/*}"
-
-#   depends_on = [
-#     "aws_api_gateway_deployment.private_api_gateway_demo_deployment",
-#   ]
-# }
-
 resource "aws_lambda_permission" "apigw_lambda" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
@@ -107,5 +95,5 @@ resource "aws_lambda_permission" "apigw_lambda" {
 }
 
 output "url" {
-  value = "${aws_api_gateway_deployment.private_api_gateway_demo_deployment.invoke_url}"
+  value = "${aws_api_gateway_deployment.private_api_gateway_demo_deployment.invoke_url}/${aws_api_gateway_resource.hello_lambda.path_part}"
 }

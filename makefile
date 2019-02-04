@@ -1,5 +1,5 @@
 # Builds lambda functions into a tmp dir and zips them for deployment
-build:
+build: deps
 	mkdir -p .tmp .tmp/go-bin .tmp/zips
 	for d in lambda-src/*; do \
 		for subdir in $$d; do \
@@ -11,3 +11,7 @@ build:
 			done; \
 		done; \
 	done;
+
+deps:
+	go get -u github.com/aws/aws-lambda-go/events
+	go get -u github.com/aws/aws-lambda-go/lambda
