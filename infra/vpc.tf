@@ -45,6 +45,20 @@ resource "aws_subnet" "private_subnet_az3" {
   depends_on = ["aws_vpc.private_api_gateway_demo_vpc"]
 }
 
+resource "aws_internet_gateway" "demo_vpc_igw" {
+  vpc_id = "${aws_vpc.private_api_gateway_demo_vpc.id}"
+
+  tags = {
+    Name = "DemoIGW"
+  }
+}
+
+resource "aws_route" "demo_vpc_default_route" {
+  route_table_id         = "${aws_vpc.private_api_gateway_demo_vpc.default_route_table_id}"
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = "${aws_internet_gateway.demo_vpc_igw.id}"
+}
+
 resource "aws_vpc_endpoint" "api_gateway" {
   vpc_id            = "${aws_vpc.private_api_gateway_demo_vpc.id}"
   service_name      = "com.amazonaws.us-west-2.execute-api"
